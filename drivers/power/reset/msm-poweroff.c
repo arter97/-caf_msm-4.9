@@ -1,4 +1,4 @@
-/* Copyright (c) 2013-2019, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2013-2019, 2021 The Linux Foundation. All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -127,7 +127,7 @@ static int scm_set_dload_mode(int arg1, int arg2)
 
 	if (!scm_dload_supported) {
 		if (tcsr_boot_misc_detect)
-			return scm_io_write(tcsr_boot_misc_detect, arg1);
+			return scm_io_write_retry(tcsr_boot_misc_detect, arg1);
 
 		return 0;
 	}

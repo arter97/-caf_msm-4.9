@@ -1,4 +1,4 @@
-/* Copyright (c) 2010-2018, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2010-2018, 2021  The Linux Foundation. All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -128,7 +128,7 @@ extern int scm_restore_sec_cfg(u32 device_id, u32 spare, int *scm_ret);
 extern u32 scm_io_read(phys_addr_t address);
 extern int scm_io_write(phys_addr_t address, u32 val);
 extern bool scm_is_secure_device(void);
-
+extern int scm_io_write_retry(phys_addr_t address, u32 val);
 #define SCM_HDCP_MAX_REG 5
 
 struct scm_hdcp_req {

@@ -1,4 +1,4 @@
-/* Copyright (c) 2010-2019, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2010-2019, 2021 The Linux Foundation. All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -1134,6 +1134,25 @@ int scm_io_write(phys_addr_t address, u32 val)
 	return ret;
 }
 EXPORT_SYMBOL(scm_io_write);
+
+int scm_io_write_retry(phys_addr_t address, u32 val)
+{
+	int ret;
+
+	if (!is_scm_armv8()) {
+		ret = scm_call_atomic2(SCM_SVC_IO, SCM_IO_WRITE, address, val);
+	} else {
+		struct scm_desc desc = {
+			.args[0] = address,
+			.args[1] = val,
+			.arginfo = SCM_ARGS(2),
+		};
+		ret = scm_call2(SCM_SIP_FNID(SCM_SVC_IO, SCM_IO_WRITE),
+				       &desc);
+	}
+	return ret;
+}
+EXPORT_SYMBOL(scm_io_write_retry);
 
 int scm_is_call_available(u32 svc_id, u32 cmd_id)
 {
