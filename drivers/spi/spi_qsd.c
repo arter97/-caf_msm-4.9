@@ -1,4 +1,5 @@
 /* Copyright (c) 2008-2017, The Linux Foundation. All rights reserved.
+ * Copyright (c) 2024 Qualcomm Innovation Center, Inc. All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -967,7 +968,7 @@ static inline irqreturn_t msm_spi_qup_irq(int irq, void *dev_id)
 		}
 		if (!dd->tx_done) {
 			if (!dd->tx_bytes_remaining &&
-					(op & SPI_OP_IP_FIFO_NOT_EMPTY)) {
+					!(op & SPI_OP_OP_FIFO_NOT_EMPTY)) {
 				dd->tx_done = true;
 			}
 		}
